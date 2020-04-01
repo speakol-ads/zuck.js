@@ -1023,7 +1023,8 @@ module.exports = (window => {
             time: a.getAttribute('data-time'),
             link: a.getAttribute('data-link'),
             linkText: a.getAttribute('data-linkText'),
-            preview: img.getAttribute('src')
+            preview: img.getAttribute('src'),
+            title: a.getAttribute('data-title')
           });
         });
 
