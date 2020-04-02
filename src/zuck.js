@@ -306,12 +306,23 @@ module.exports = (window => {
         },
 
         timelineStoryItem (itemData) {
-          return `<a href="${get(itemData, 'src')}"
-                      data-link="${get(itemData, 'link')}"
-                      data-linkText="${get(itemData, 'linkText')}"
-                      data-time="${get(itemData, 'time')}"
-                      data-type="${get(itemData, 'type')}"
-                      data-length="${get(itemData, 'length')}">
+          const reserved = ['id', 'seen', 'src', 'link', 'linkText', 'time', 'type', 'length', 'preview'];
+          let string = `
+            href="${get(itemData, 'src')}"
+            data-link="${get(itemData, 'link')}"
+            data-linkText="${get(itemData, 'linkText')}"
+            data-time="${get(itemData, 'time')}"
+            data-type="${get(itemData, 'type')}"
+            data-length="${get(itemData, 'length')}"
+          `;
+
+          for(const dataKey in itemData) {
+            if(reserved.indexOf(dataKey) === -1) {
+              string += ` data-${dataKey}="${itemData[dataKey]}"`;
+            }
+          }
+
+          return `<a ${string}>
                     <img loading="auto" src="${get(itemData, 'preview')}" />
                   </a>`;
         },
@@ -644,7 +655,6 @@ module.exports = (window => {
         let storyViewer = storyViewerWrap.firstElementChild;
 
         storyViewer.className = `story-viewer muted ${className} ${!forcePlay ? 'stopped' : ''} ${option('backButton') ? 'with-back-button' : ''}`;
-
         storyViewer.setAttribute('data-story-id', storyId);
         storyViewer.querySelector('.slides-pointers .wrap').innerHTML = pointerItems;
 
@@ -778,7 +788,6 @@ module.exports = (window => {
         let touchEnd = function (event) {
           const storyViewer = query('#zuck-modal .viewing');
           const lastTouchOffset = touchOffset;
-
           const duration = touchOffset ? Date.now() - touchOffset.time : undefined;
           const isValid = (Number(duration) < 300 && Math.abs(delta.x) > 25) || Math.abs(delta.x) > modalContainer.slideWidth / 3;
           const direction = delta.x < 0;
@@ -1015,7 +1024,7 @@ module.exports = (window => {
           const a = firstElementChild;
           const img = a.firstElementChild;
 
-          items.push({
+          const item = {
             id: a.getAttribute('data-id'),
             src: a.getAttribute('href'),
             length: a.getAttribute('data-length'),
@@ -1024,8 +1033,20 @@ module.exports = (window => {
             link: a.getAttribute('data-link'),
             linkText: a.getAttribute('data-linkText'),
             preview: img.getAttribute('src'),
-            title: a.getAttribute('data-title')
-          });
+          };
+
+          // collect all attributes
+          const all = a.attributes;
+          // exclude the reserved options
+          const reserved = ['data-id', 'href', 'data-length', 'data-type', 'data-time', 'data-link', 'data-linktext'];
+          for(let z=0; z < all.length; z++) {
+            if(reserved.indexOf(all[z].nodeName) === -1) {
+              item[all[z].nodeName.replace('data-', '')] = all[z].nodeValue;
+            }
+          }
+
+          // destruct the remaining attributes as options
+          items.push(item);
         });
 
         zuck.data[storyId].items = items;
@@ -1322,7 +1343,7 @@ module.exports = (window => {
       const currentStory = zuck.internalData['currentStory'];
       const currentItem = zuck.data[currentStory]['currentItem'];
       const storyViewer = query(`#zuck-modal .story-viewer[data-story-id="${currentStory}"]`);
-      let directionNumber = direction === 'previous' ? -1 : 1;
+      const directionNumber = direction === 'previous' ? -1 : 1;
 
       if (!storyViewer || storyViewer.touchMove === 1) {
         return false;
@@ -1360,7 +1381,7 @@ module.exports = (window => {
             el.innerText = timeAgo(nextItem.getAttribute('data-time'));
           });
 
-          zuck.data[currentStory]['currentItem'] =zuck.data[currentStory]['currentItem'] + directionNumber;
+          zuck.data[currentStory]['currentItem'] = zuck.data[currentStory]['currentItem'] + directionNumber;
 
           playVideoItem(storyViewer, nextItems, event);
         };
