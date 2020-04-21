@@ -242,5 +242,3 @@ MIT
 Please ⭐️ this repository if this project helped you! Feel free to buy me a coffee:
 
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/F1F710G8L)
-
-Test_CI
