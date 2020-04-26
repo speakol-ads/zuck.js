@@ -7,6 +7,7 @@
     position: absolute;
     z-index: 1;
 }
+
 #zuck-modal.rtl #zuck-modal-content .story-viewer .slides .item > .background-image {
     transform: translate(50%, -50%);
 }
@@ -40,6 +41,10 @@
     position: relative;
 }
 
+.stories.carousel .story > .item-link > .item-preview img {
+  margin: 0;
+}
+
 #zuck-modal-content .story-viewer .tip {
     text-decoration: none;
     display: none;
@@ -69,3 +74,8 @@
     background: #ffffff;
     padding: 10px 20px;
     border-radius: 20px;}
+
+
+.sp-video-box {
+  z-index: 1;
+}
