@@ -1,3 +1,16 @@
+#zuck-modal div, #zuck-modal span,
+#zuck-modal h1, #zuck-modal h2, #zuck-modal h3, #zuck-modal h4, #zuck-modal h5, #zuck-modal h6,
+#zuck-modal a, #zuck-modal img, #zuck-modal audio, #zuck-modal video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  max-width: none;
+  max-height: none;
+}
+
 @keyframes zuckSlideTime {
   0% {
     max-width: 0;
