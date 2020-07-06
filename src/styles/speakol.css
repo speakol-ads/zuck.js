@@ -20,7 +20,7 @@
     padding: 10px;
 }
 
-#zuck-modal-content .story-viewer .slides .item > .media {
+#zuck-modal-content .story-viewer .slides .item .media {
     max-width: 100%;
     margin: 30% 0 0 0;
     height: auto;
@@ -39,6 +39,12 @@
     display: inline;
     z-index: 2;
     position: relative;
+    font-size: 1.5em;
+}
+
+.stories.carousel {
+  overflow-y: hidden;
+  overflow-x: auto;
 }
 
 .stories.carousel .story > .item-link > .item-preview img {
