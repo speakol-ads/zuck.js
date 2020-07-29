@@ -778,7 +778,19 @@ module.exports = (window => {
           }
         };
 
-        const touchEnd = function (event) {
+        const verticalSwipe = function (event) {
+          if (delta.y < 0) {
+            const element = query('#zuck-modal .viewing .item.active a');
+
+            if (element) {
+              element.click();
+            }
+          }
+        };
+
+        const horizontalSwipe = function (event) {
+          console.log('horizontal swipe');
+
           const storyViewer = query('#zuck-modal .viewing');
           const lastTouchOffset = touchOffset;
           const duration = touchOffset ? Date.now() - touchOffset.time : undefined;
@@ -792,7 +804,6 @@ module.exports = (window => {
             index = direction && !option('rtl') ? query('#zuck-modal .story-viewer.next') : query('#zuck-modal .story-viewer.previous');
           }
 
-          console.log(index);
           const isOutOfBounds = (direction && !index) || (!direction && !index);
 
           if (touchOffset && !touchOffset.valid) {
@@ -866,6 +877,14 @@ module.exports = (window => {
                 return false;
               }
             }
+          }
+        };
+
+        const touchEnd = function (event) {
+          if (Math.abs(delta.x) > Math.abs(delta.y)) {
+            horizontalSwipe();
+          } else {
+            verticalSwipe();
           }
         };
 
