@@ -112,13 +112,13 @@ module.exports = (window => {
           ) {
             if (document.exitFullscreen) {
               document.exitFullscreen()
-                .catch(() => {});
+                .catch(() => { });
             } else if (document.mozCancelFullScreen) {
               document.mozCancelFullScreen()
-                .catch(() => {});
+                .catch(() => { });
             } else if (document.mozCancelFullScreen) {
               document.mozCancelFullScreen()
-                .catch(() => {});
+                .catch(() => { });
             }
           }
         } else {
@@ -270,7 +270,7 @@ module.exports = (window => {
         onOpen: function (storyId, callback) {
           callback();
         },
-        onView: function (storyId) {},
+        onView: function (storyId) { },
         onEnd: function (storyId, callback) {
           callback();
         },
@@ -285,16 +285,16 @@ module.exports = (window => {
         }
       },
       template: {
-        timelineItem (itemData) {
+        timelineItem(itemData) {
           return `
             <div class="story ${get(itemData, 'seen') === true ? 'seen' : ''}">
               <a class="item-link" href="${get(itemData, 'link')}">
                 <span class="item-preview">
                   <img lazy="eager" src="${
-                    (option('avatars') || !get(itemData, 'currentPreview'))
-                    ? get(itemData, 'photo')
-                    : get(itemData, 'currentPreview')
-                  }" />
+            (option('avatars') || !get(itemData, 'currentPreview'))
+              ? get(itemData, 'photo')
+              : get(itemData, 'currentPreview')
+            }" />
                 </span>
                 <span class="info" itemProp="author" itemScope itemType="http://schema.org/Person">
                   <strong class="name" itemProp="name">${get(itemData, 'name')}</strong>
@@ -306,7 +306,7 @@ module.exports = (window => {
             </div>`;
         },
 
-        timelineStoryItem (itemData) {
+        timelineStoryItem(itemData) {
           const reserved = ['id', 'seen', 'src', 'link', 'linkText', 'time', 'type', 'length', 'preview'];
           let attributes = `
             href="${get(itemData, 'src')}"
@@ -328,7 +328,7 @@ module.exports = (window => {
                   </a>`;
         },
 
-        viewerItem (storyData, currentStoryItem) {
+        viewerItem(storyData, currentStoryItem) {
           return `<div class="story-viewer">
                     <div class="head">
                       <div class="left">
@@ -356,17 +356,17 @@ module.exports = (window => {
                     </div>
 
                     ${
-                      option('paginationArrows')
-                      ? `<div class="slides-pagination">
+            option('paginationArrows')
+              ? `<div class="slides-pagination">
                           <span class="previous">&lsaquo;</span>
                           <span class="next">&rsaquo;</span>
                         </div>`
-                      : ''
-                    }
+              : ''
+            }
                   </div>`;
         },
 
-        viewerItemPointer (index, currentIndex, item) {
+        viewerItemPointer(index, currentIndex, item) {
           return `<span 
                     class="${currentIndex === index ? 'active' : ''} ${get(item, 'seen') === true ? 'seen' : ''}"
                     data-index="${index}" data-item-id="${get(item, 'id')}">
@@ -374,24 +374,24 @@ module.exports = (window => {
                   </span>`;
         },
 
-        viewerItemBody (index, currentIndex, item) {
+        viewerItemBody(index, currentIndex, item) {
           return `<div 
                     class="item ${get(item, 'seen') === true ? 'seen' : ''} ${currentIndex === index ? 'active' : ''}"
                     data-time="${get(item, 'time')}" data-type="${get(item, 'type')}" data-index="${index}" data-item-id="${get(item, 'id')}">
                     ${
-                      get(item, 'type') === 'video'
-                      ? `<video class="media" muted webkit-playsinline playsinline preload="auto" src="${get(item, 'src')}" ${get(item, 'type')}></video>
+            get(item, 'type') === 'video'
+              ? `<video class="media" muted webkit-playsinline playsinline preload="auto" src="${get(item, 'src')}" ${get(item, 'type')}></video>
                         <b class="tip muted">${option('language', 'unmute')}</b>`
-                      : `<img loading="auto" class="media" src="${get(item, 'src')}" ${get(item, 'type')} />
+              : `<img loading="auto" class="media" src="${get(item, 'src')}" ${get(item, 'type')} />
                     `}
 
                     ${
-                      get(item, 'link')
-                      ? `<a class="tip link" href="${get(item, 'link')}" rel="noopener" target="_blank">
+            get(item, 'link')
+              ? `<a class="tip link" href="${get(item, 'link')}" rel="noopener" target="_blank">
                             ${!get(item, 'linkText') || get(item, 'linkText') === '' ? option('language', 'visitLink') : get(item, 'linkText')}
                           </a>`
-                      : ''
-                    }
+              : ''
+            }
                   </div>`;
         }
       },
@@ -480,7 +480,7 @@ module.exports = (window => {
 
         if (
           (!slideItems.previous && !direction) ||
-            (!slideItems.next && direction)
+          (!slideItems.next && direction)
         ) {
           if (!option('rtl')) {
             return false;
@@ -555,7 +555,7 @@ module.exports = (window => {
               );
 
               items[0].innerHTML =
-                  `<b style="${duration.style.cssText}"></b>`;
+                `<b style="${duration.style.cssText}"></b>`;
               onAnimationEnd(items[0].firstElementChild, () => {
                 zuck.nextItem(false);
               });
@@ -869,7 +869,7 @@ module.exports = (window => {
       };
 
       return {
-        show (storyId, page) {
+        show(storyId, page) {
           const modalContainer = query('#zuck-modal');
 
           const callback = function () {
@@ -907,8 +907,8 @@ module.exports = (window => {
             const tryFullScreen = function () {
               if (
                 modalContainer.classList.contains('fullscreen') &&
-                  option('autoFullScreen') &&
-                  window.screen.availWidth <= 1024
+                option('autoFullScreen') &&
+                window.screen.availWidth <= 1024
               ) {
                 fullScreen(modalContainer);
               }
@@ -947,7 +947,7 @@ module.exports = (window => {
 
           option('callbacks', 'onOpen')(storyId, callback);
         },
-        next (unmute) {
+        next(unmute) {
           const callback = function () {
             const lastStory = zuck.internalData.currentStory;
             const lastStoryTimelineElement = query(
@@ -981,7 +981,7 @@ module.exports = (window => {
             callback
           );
         },
-        close () {
+        close() {
           const modalContainer = query('#zuck-modal');
 
           const callback = function () {
@@ -1046,7 +1046,7 @@ module.exports = (window => {
 
         const callback = option('callbacks', 'onDataUpdate');
         if (callback) {
-          callback(zuck.data, () => {});
+          callback(zuck.data, () => { });
         }
       }
     };
@@ -1099,7 +1099,7 @@ module.exports = (window => {
 
       const callback = option('callbacks', 'onDataUpdate');
       if (callback) {
-        callback(zuck.data, () => {});
+        callback(zuck.data, () => { });
       }
     };
 
@@ -1187,7 +1187,7 @@ module.exports = (window => {
       if (video) {
         try {
           video.pause();
-        } catch (e) {}
+        } catch (e) { }
       }
     };
 
@@ -1215,7 +1215,7 @@ module.exports = (window => {
 
           window.localStorage[keyName] = JSON.stringify(data);
         }
-      } catch (e) {}
+      } catch (e) { }
     };
 
     const getLocalData = function (key) {
