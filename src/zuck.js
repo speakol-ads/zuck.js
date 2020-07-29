@@ -785,7 +785,14 @@ module.exports = (window => {
           const isValid = (Number(duration) < 300 && Math.abs(delta.x) > 25) || Math.abs(delta.x) > modalContainer.slideWidth / 3;
           const direction = delta.x < 0;
 
-          const index = direction ? query('#zuck-modal .story-viewer.next') : query('#zuck-modal .story-viewer.previous');
+          let index = null;
+          if (option('rtl')) {
+            index = !direction ? query('#zuck-modal .story-viewer.next') : query('#zuck-modal .story-viewer.previous');
+          } else {
+            index = direction && !option('rtl') ? query('#zuck-modal .story-viewer.next') : query('#zuck-modal .story-viewer.previous');
+          }
+
+          console.log(index);
           const isOutOfBounds = (direction && !index) || (!direction && !index);
 
           if (touchOffset && !touchOffset.valid) {
