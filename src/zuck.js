@@ -785,12 +785,12 @@ module.exports = (window => {
             if (element) {
               element.click();
             }
+          } else {
+            modal.close();
           }
         };
 
         const horizontalSwipe = function (event) {
-          console.log('horizontal swipe');
-
           const storyViewer = query('#zuck-modal .viewing');
           const lastTouchOffset = touchOffset;
           const duration = touchOffset ? Date.now() - touchOffset.time : undefined;
@@ -881,10 +881,10 @@ module.exports = (window => {
         };
 
         const touchEnd = function (event) {
-          if (Math.abs(delta.x) > Math.abs(delta.y)) {
-            horizontalSwipe();
-          } else {
+          if (Math.abs(delta.x) < Math.abs(delta.y)) {
             verticalSwipe();
+          } else {
+            horizontalSwipe();
           }
         };
 
