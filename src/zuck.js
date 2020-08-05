@@ -987,7 +987,6 @@ module.exports = (window => {
               zuck.internalData.seenItems[lastStory] = true;
 
               saveLocalData('seenItems', zuck.internalData.seenItems);
-              updateStorySeenPosition();
             }
 
             const stories = query('#zuck-modal .story-viewer.next');
