@@ -1,4 +1,4 @@
-#zuck-modal-content .story-viewer .slides .item > .background-image {
+#zuck-modal-content .story-viewer .slides .item>.background-image {
     transform: translate(-50%, -50%);
     filter: blur(20px);
     -webkit-filter: blur(20px);
@@ -8,7 +8,7 @@
     z-index: 1;
 }
 
-#zuck-modal.rtl #zuck-modal-content .story-viewer .slides .item > .background-image {
+#zuck-modal.rtl #zuck-modal-content .story-viewer .slides .item>.background-image {
     transform: translate(50%, -50%);
 }
 
@@ -31,7 +31,7 @@
     z-index: 2;
 }
 
-#zuck-modal-content .story-viewer .slides .item > .title {
+#zuck-modal-content .story-viewer .slides .item>.title {
     background: #EB5757;
     padding: 5px;
     color: #ffffff;
@@ -43,12 +43,12 @@
 }
 
 .stories.carousel {
-  overflow-y: hidden;
-  overflow-x: auto;
+    overflow-y: hidden;
+    overflow-x: auto;
 }
 
-.stories.carousel .story > .item-link > .item-preview img {
-  margin: 0;
+.stories.carousel .story>.item-link>.item-preview img {
+    margin: 0;
 }
 
 #zuck-modal-content .story-viewer .tip {
@@ -79,9 +79,13 @@
 #zuck-modal-content .story-viewer .tip span {
     background: #ffffff;
     padding: 10px 20px;
-    border-radius: 20px;}
-
+    border-radius: 20px;
+}
 
 .sp-video-box {
-  z-index: 1;
+    z-index: 1;
+}
+
+.stories.carousel::-webkit-scrollbar {
+    height: 1px;
 }
